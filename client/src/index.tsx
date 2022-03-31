@@ -6,14 +6,24 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import { BrowserRouter } from 'react-router-dom';
+import { provider } from 'web3-core';
+import Web3 from 'web3'
+import { Web3ReactProvider } from '@web3-react/core'
+
+function getLibrary(provider: provider) {
+  return new Web3(provider)
+}
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

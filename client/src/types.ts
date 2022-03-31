@@ -50,10 +50,16 @@ export interface IStore {
   todo: ITodoState;
   ui: IUiState;
   auth: IAuth;
+  wallet: IWalletState;
 }
 
 export interface IUiState {
   snackbar: SnackBarAlert;
+}
+export interface IWalletState {
+  walletAddress: string | undefined;
+  walletConnecting: boolean;
+  walletConnected: boolean;
 }
 
 export interface IAuth {
