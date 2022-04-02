@@ -46,6 +46,14 @@ export interface ITodoState {
   err: any;
 }
 
+export type TransactionDTO = {
+  id: string,
+  senderAddress: string,
+  recipientAddress: string,
+  amount: string,
+  note: string,
+};
+
 export interface IStore {
   todo: ITodoState;
   ui: IUiState;
@@ -60,6 +68,9 @@ export interface IWalletState {
   walletAddress: string | undefined;
   walletConnecting: boolean;
   walletConnected: boolean;
+  transactions: TransactionDTO[],
+  transactionsLoading: false,
+  transactionsLoaded: false
 }
 
 export interface IAuth {

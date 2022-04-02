@@ -11,6 +11,7 @@ import { hash, compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { TodoEntity } from 'src/todo/todo.entity';
 import { UserSO } from './user.dto';
+import { TransactionEntity } from '../transaction/transaction.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -39,6 +40,12 @@ export class UserEntity {
     todo => todo.author,
   )
   todos: TodoEntity[];
+
+  @OneToMany(
+    type => TransactionEntity,
+    transaction => transaction.author,
+  )
+  transactions: TransactionEntity[];
 
   comparePassword = async (attempt: string) => {
     return await compare(attempt, this.password);
