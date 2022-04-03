@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import ConnectButton from '../components/wallet/ConnectButton';
 import TransactionForm from '../components/wallet/TransactionForm';
 import TransactionList from '../components/wallet/TransactionList';
@@ -7,14 +6,11 @@ import TransactionList from '../components/wallet/TransactionList';
 const Wallet = () => {
   return (
     <div >
-    <div style={{ height: '64px' }} />
-      <br />
+      <div style={{ height: '104px' }} />
       <ConnectButton />
-      <br />
-      <br />
+      <div style={{ height: '24px' }} />
       <TransactionForm />
-      <br />
-      <br />
+      <div style={{ height: '24px' }} />
       <TransactionList />
     </div>
   );

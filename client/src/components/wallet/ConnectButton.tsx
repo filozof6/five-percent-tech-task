@@ -11,7 +11,6 @@ function ConnectButton() {
   const walletState = useSelector((state: IStore) => state.wallet);
 
   const { activate, account, active, deactivate } = useWeb3React();
-  console.log('account', account)
 
   useEffect(() => {
     let walletAddress;
@@ -23,7 +22,6 @@ function ConnectButton() {
 
   // Check when App is Connected or Disconnected to MetaMask
   const handleIsActive = useCallback(() => {
-      console.log('App is connected with MetaMask ', active);
       dispatch(walletActions.setWalletConnected(active));
   }, [active]);
 

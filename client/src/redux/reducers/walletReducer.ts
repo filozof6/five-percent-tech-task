@@ -1,7 +1,7 @@
 import { Action, IWalletState } from "../../types";
 import * as types from "../actions/wallet/types";
 
-const initialState: IWalletState = {
+export const initialWalletState: IWalletState = {
   walletAddress: undefined,
   walletConnecting: false,
   walletConnected: false,
@@ -11,7 +11,7 @@ const initialState: IWalletState = {
 };
 
 export const walletReducer = (
-  state = initialState,
+  state = initialWalletState,
   action: Action
 ): IWalletState => {
   switch (action.type) {

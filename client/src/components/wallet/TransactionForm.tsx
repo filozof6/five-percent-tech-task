@@ -12,8 +12,16 @@ const useStyles = makeStyles(() => ({
   inputField: {
     width: '70%',
   },
+  formWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  submitButton: {
+    marginTop: '36px',
+    width: '50%',
+  }
 }));
-
 
 function TransactionForm() {
   const [addr, setAddr] = useState<string>('');
@@ -21,9 +29,7 @@ function TransactionForm() {
   const [note, setNote] = useState<string>('');
   const dispatch = useDispatch();
   const walletState = useSelector((state: IStore) => state.wallet);
-
   const classes = useStyles();
-
 
   const startPayment = async () => {
     try {
@@ -65,7 +71,7 @@ function TransactionForm() {
 
   if (walletState.walletConnected) {
     return (
-      <>
+      <div className={classes.formWrapper}>
         <TextField
           label="Recipient address"
           variant="filled"
@@ -76,9 +82,8 @@ function TransactionForm() {
             setAddr(event.target.value);
           }}
         />
-        <br />
         <TextField
-          label="Recipient address"
+          label="Amount"
           variant="filled"
           size="small"
           inputProps={{ inputMode: 'numeric', type: 'number' }}
@@ -88,7 +93,6 @@ function TransactionForm() {
             setAmount(event.target.value);
           }}
         />
-        <br />
         <TextField
           label="Note"
           variant="filled"
@@ -99,13 +103,16 @@ function TransactionForm() {
             setNote(event.target.value);
           }}
         />
-        <br />
-        <br />
-        <Button disabled={!walletState.walletConnected} variant="contained" onClick={startPayment}>
+        <Button 
+          disabled={!addr.length || !amount.length} 
+          variant="contained" 
+          onClick={startPayment}
+          data-testid={'transactionFormSubmit'}
+          className={classes.submitButton}
+        >
           Send money
         </Button>
-        <br />
-      </>
+      </div>
     );
   }
 

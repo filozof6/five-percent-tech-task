@@ -42,7 +42,7 @@ function TransactionList() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} data-test-id={'transactionListTable'}>
       <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -56,6 +56,7 @@ function TransactionList() {
           {walletState.transactionsLoading && Array.from(Array(4)).map((v, i) => 
             <TableRow
               key={i}
+              data-testid='skeleton'
             >
               <TableCell>
                 <Skeleton />

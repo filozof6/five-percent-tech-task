@@ -26,7 +26,11 @@ function App() {
   const { currentUser, isLoading } = useSelector((state: IStore) => state.auth);
 
   useEffect(() => {
-    dispatch(getProfile(history));
+    const dispatchInitFunctions = async () => {
+      dispatch(await getProfile(history));
+    }
+
+    dispatchInitFunctions();
   }, []);
 
   return (
