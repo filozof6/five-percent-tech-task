@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../../types';
-import { Paper } from '@material-ui/core';
+import { Paper, Tooltip } from '@material-ui/core';
 import { setSnackBar } from '../../redux/actions/ui/actions';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,7 +18,6 @@ import Button from '@material-ui/core/Button';
 
 function TransactionList() {
   const dispatch = useDispatch();
-
   const walletState = useSelector((state: IStore) => state.wallet);
 
   useEffect(() => {
@@ -49,7 +48,8 @@ function TransactionList() {
             <TableCell>Tx ID</TableCell>
             <TableCell>Sender</TableCell>
             <TableCell>Recipient</TableCell>
-            <TableCell align="right">Amount</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Note</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,40 +67,48 @@ function TransactionList() {
               <TableCell>
                 <Skeleton />
               </TableCell>
+              <TableCell>
+                <Skeleton />
+              </TableCell>
             </TableRow>
           )}
           {walletState.transactionsLoaded && walletState.transactions.map((transaction) => (
             <TableRow
               key={transaction.id}
             >
-              <TableCell>
-                  {transaction.id.substring(0, 7)}...&nbsp;
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    onClick={() => {
-                      copy(transaction.id);
-                      dispatch(setSnackBar({
-                        type: 'info',
-                        msg: 'Transaction id copied to clipboard',
-                      }));
-                    }}
-                  >
-                    Copy
-                  </Button>
+              <TableCell >
+                  <Tooltip title={transaction.id} arrow>
+                    <span>
+                      {transaction.id.substring(0, 7)}...&nbsp;
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => {
+                          copy(transaction.id);
+                          dispatch(setSnackBar({
+                            type: 'info',
+                            msg: 'Transaction id copied to clipboard',
+                          }));
+                        }}
+                      >
+                        Copy
+                      </Button>
+                    </span>
+                  </Tooltip>
               </TableCell>
               <TableCell>
-                <a href={`https://etherscan.io/address/${transaction.senderAddress}`} target="_blank" >
+                <a href={`https://kovan.etherscan.io/address/${transaction.senderAddress}`} target="_blank" >
                   {transaction.senderAddress}
                 </a>
               </TableCell>
               <TableCell>
-                <a href={`https://etherscan.io/address/${transaction.recipientAddress}`} target="_blank" >
+                <a href={`https://kovan.etherscan.io/address/${transaction.recipientAddress}`} target="_blank" >
                   {transaction.recipientAddress}
                 </a>
               </TableCell>
-              <TableCell align="right">{transaction.amount}</TableCell>
+              <TableCell>{transaction.amount}</TableCell>
+              <TableCell>{transaction.note}</TableCell>
             </TableRow>
           ))}
           {walletState.transactionsLoaded && walletState.transactions.length === 0 &&

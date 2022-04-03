@@ -1,17 +1,18 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEthereumAddress, IsNumberString, IsString, MinLength } from 'class-validator';
 
 export class TransactionDTO {
   @IsString()
   id: string;
 
-  @IsString()
+  @IsEthereumAddress()
   @MinLength(40)
   senderAddress: string;
 
-  @IsString()
+  @IsEthereumAddress()
   @MinLength(40)
   recipientAddress: string;
 
+  @IsNumberString()
   amount: string;
 
   @IsString()

@@ -32,7 +32,7 @@ export class TransactionService {
 
   getMany = async (userId: string): Promise<TransactionSO[]> => {
     const user = await this.userRepository.findOne({ where: { id: userId } });
-    const transactions = await this.transactionRepository.find({ where: { author: user } });
+    const transactions = await this.transactionRepository.find({ where: { author: user }, order: { createdOn: 'DESC' } });
     console.log({transactions});
     return transactions;
   };

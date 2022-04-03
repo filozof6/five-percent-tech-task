@@ -9,7 +9,6 @@ import { useWeb3React } from '@web3-react/core';
 function ConnectButton() {
   const dispatch = useDispatch();
   const walletState = useSelector((state: IStore) => state.wallet);
-
   const { activate, account, active, deactivate } = useWeb3React();
 
   useEffect(() => {
