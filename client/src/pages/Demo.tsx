@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, makeStyles, Theme } from '@material-ui/core';
+import { TextField, makeStyles, Theme, Button } from '@material-ui/core';
 import TodosTable from '../containers/TodosTable';
 import AddButton from '../components/add-button/AddButton';
-
+import { Link } from 'react-router-dom';
 import { IStore } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import * as todoActions from '../redux/actions/todo/actions';
@@ -124,6 +124,11 @@ const Demo = () => {
             {authState.currentUser?.email &&
               `Hi, ${authState.currentUser?.email}`}
           </div>
+          <Link to="/transaction">
+            <Button variant="outlined">
+              Make transaction
+            </Button>
+          </Link>
           <div className={classes.title}>Your Todo List</div>
           <div className={classes.formWrapper}>
             <form className={classes.form} onSubmit={onAddTodoHandler}>

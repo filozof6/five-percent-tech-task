@@ -40,7 +40,7 @@ const Navbar = () => {
     <Grid
       container
       alignItems="center"
-      justify="space-between"
+      justifyContent="space-between"
       className={classes.navbar}
     >
       <Grid item className={classes.navLinks}>

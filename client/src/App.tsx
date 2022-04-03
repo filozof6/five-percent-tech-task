@@ -8,6 +8,7 @@ import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import SnackBar from './components/snackbar/SnackBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Wallet from './pages/Wallet';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from './redux/actions/auth/actions';
@@ -25,7 +26,11 @@ function App() {
   const { currentUser, isLoading } = useSelector((state: IStore) => state.auth);
 
   useEffect(() => {
-    dispatch(getProfile(history));
+    const dispatchInitFunctions = async () => {
+      dispatch(await getProfile(history));
+    }
+
+    dispatchInitFunctions();
   }, []);
 
   return (
@@ -37,6 +42,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <PrivateRoute isLoggedIn={!!currentUser} path="/transaction" component={Wallet} />
 
             <PrivateRoute
               isLoggedIn={!!currentUser}
